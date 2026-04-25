@@ -62,25 +62,28 @@
         </section>
 
         <!-- Formulario de contacto básico -->
+               <!-- Formulario de contacto con EmailJS -->
         <section class="section form-section">
             <div class="container">
                 <h2 class="section-title">Escríbenos</h2>
-                <form action="#" method="post" class="contact-form">
+                <form id="contact-form" class="contact-form">
                     <div class="form-group">
-                        <input type="text" placeholder="Nombre completo" required>
+                        <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" placeholder="Correo electrónico" required>
+                        <input type="email" id="correo" name="correo" placeholder="Correo electrónico" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" placeholder="Asunto">
+                        <input type="text" id="asunto" name="asunto" placeholder="Asunto">
                     </div>
                     <div class="form-group">
-                        <textarea rows="5" placeholder="Mensaje..."></textarea>
+                        <textarea id="mensaje" name="mensaje" rows="5" placeholder="Mensaje..." required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Enviar mensaje <i class="fas fa-paper-plane"></i></button>
+                    <button type="submit" class="btn btn-primary" id="submit-btn">
+                        Enviar mensaje <i class="fas fa-paper-plane"></i>
+                    </button>
+                    <div id="form-status" style="margin-top: 16px; text-align: center; font-weight: 500;"></div>
                 </form>
-                <p class="form-note">*Por ahora este formulario es de demostración. Para comunicarte inmediatamente, usa nuestro correo ierpalmirapenol@gmail.com o teléfono 8514615.</p>
             </div>
         </section>
     </main>
@@ -113,5 +116,63 @@
     </footer>
 
     <script src="script.js"></script>
+    <!-- EmailJS Library -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        // Inicializar EmailJS con tu Public Key
+        (function() {
+            emailjs.init({
+                publicKey: "sT8AlQfDHLFIFz_22",
+            });
+        })();
+
+        // Esperar a que el DOM cargue
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contact-form');
+            const statusDiv = document.getElementById('form-status');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            if (form) {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault(); // Evita recargar la página
+                    
+                    // Cambiar estado del botón
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = 'Enviando... <i class="fas fa-spinner fa-spin"></i>';
+                    
+                    // Recoger datos del formulario
+                    const templateParams = {
+                        nombre: document.getElementById('nombre').value,
+                        correo: document.getElementById('correo').value,
+                        asunto: document.getElementById('asunto').value,
+                        mensaje: document.getElementById('mensaje').value,
+                    };
+                    
+                    // Enviar usando EmailJS con tus IDs
+                    emailjs.send(
+                        'service_23b8dyh',      // Service ID
+                        'template_l5z5uzw',     // Template ID
+                        templateParams
+                    ).then(
+                        function(response) {
+                            // Éxito
+                            statusDiv.innerHTML = '<span style="color: #059669;">✅ ¡Mensaje enviado con éxito! Te responderemos pronto.</span>';
+                            form.reset(); // Limpiar formulario
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = 'Enviar mensaje <i class="fas fa-paper-plane"></i>';
+                            setTimeout(() => { statusDiv.innerHTML = ''; }, 5000);
+                        },
+                        function(error) {
+                            // Error
+                            console.error('Error:', error);
+                            statusDiv.innerHTML = '<span style="color: #dc2626;">❌ Error al enviar. Intenta de nuevo o escríbenos a administrador@ieruralpalmira.edu.co</span>';
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = 'Enviar mensaje <i class="fas fa-paper-plane"></i>';
+                        }
+                    );
+                });
+            }
+        });
+    </script>
 </body>
-</html>
+</html>t>
