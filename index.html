@@ -144,6 +144,60 @@
     <script src="script.js"></script>
 <!-- Estilos y HTML del chatbot -->
 <style>
+    /* Estilos para el botón con avatar */
+.chatbot-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #1e3a8a;
+    border: none;
+    border-radius: 60px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    padding: 8px 20px 8px 12px;
+}
+
+.chatbot-btn:hover {
+    transform: scale(1.05);
+    background: #059669;
+}
+
+.avatar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+}
+
+.avatar-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: white;
+    padding: 5px;
+}
+
+.avatar-text {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Responsive para móviles */
+@media (max-width: 600px) {
+    .avatar-text {
+        display: none;
+    }
+    .chatbot-btn {
+        padding: 8px 12px;
+    }
+    .avatar-img {
+        width: 50px;
+        height: 50px;
+    }
+}
 .chatbot-btn {
     position: fixed;
     bottom: 20px;
@@ -261,11 +315,16 @@
 }
 </style>
 
-<button class="chatbot-btn" id="chatbotBtn">💬</button>
+<button class="chatbot-btn" id="chatbotBtn">
+    <div class="avatar">
+        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="Asistente Virtual" class="avatar-img">
+        <span class="avatar-text">Asistente Virtual</span>
+    </div>
+</button>
 
 <div class="chatbot-window" id="chatbotWindow">
     <div class="chatbot-header">
-        <span>🤖 Asistente I.E. Rural Palmira</span>
+        <span>🧑‍🏫 Asistente Virtual - I.E. Rural Palmira</span>
         <button id="closeChatBtn">✕</button>
     </div>
     <div class="chatbot-messages" id="chatMessages">
