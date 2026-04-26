@@ -142,5 +142,238 @@
     </footer>
 
     <script src="script.js"></script>
+<!-- Estilos y HTML del chatbot -->
+<style>
+.chatbot-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #059669;
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    font-size: 24px;
+    z-index: 1000;
+    transition: all 0.3s;
+}
+.chatbot-btn:hover {
+    background: #047857;
+    transform: scale(1.05);
+}
+.chatbot-window {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+}
+.chatbot-window.open {
+    display: flex;
+}
+.chatbot-header {
+    background: #1e3a8a;
+    color: white;
+    padding: 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.chatbot-header button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+.chatbot-messages {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.message {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 18px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+.message.user {
+    background: #059669;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+}
+.message.bot {
+    background: #f1f5f9;
+    color: #1e293b;
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+}
+.sources {
+    font-size: 10px;
+    color: #64748b;
+    margin-top: 8px;
+    padding-top: 4px;
+    border-top: 1px solid #e2e8f0;
+}
+.chatbot-input {
+    display: flex;
+    padding: 12px;
+    border-top: 1px solid #e2e8f0;
+    gap: 8px;
+}
+.chatbot-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 24px;
+    outline: none;
+}
+.chatbot-input button {
+    background: #059669;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 24px;
+    cursor: pointer;
+}
+.typing {
+    color: #94a3b8;
+    font-style: italic;
+    font-size: 12px;
+    padding: 8px 12px;
+}
+</style>
+
+<button class="chatbot-btn" id="chatbotBtn">💬</button>
+
+<div class="chatbot-window" id="chatbotWindow">
+    <div class="chatbot-header">
+        <span>🤖 Asistente I.E. Rural Palmira</span>
+        <button id="closeChatBtn">✕</button>
+    </div>
+    <div class="chatbot-messages" id="chatMessages">
+        <div class="message bot">
+            ¡Hola! Soy el asistente virtual de la I.E. Rural Palmira.<br><br>
+            Puedo resolver tus dudas sobre el Manual de Convivencia:<br>
+            • Faltas y sanciones<br>
+            • Derechos y deberes<br>
+            • Uniformes<br>
+            • Gobierno escolar<br>
+            • Matrícula y más<br><br>
+            ¿En qué puedo ayudarte?
+        </div>
+    </div>
+    <div class="chatbot-input">
+        <input type="text" id="chatInput" placeholder="Escribe tu pregunta...">
+        <button id="sendBtn">Enviar</button>
+    </div>
+</div>
+
+<script>
+// ⚠️ CAMBIA ESTA URL POR LA QUE OBTENGAS DE CLOUDFLARE WORKER
+const API_URL = 'https://ierpalmira-chatbot.ierpalmira-chatbot.workers.dev';
+
+// Elementos del DOM
+const chatbotBtn = document.getElementById('chatbotBtn');
+const chatbotWindow = document.getElementById('chatbotWindow');
+const closeChatBtn = document.getElementById('closeChatBtn');
+const chatMessages = document.getElementById('chatMessages');
+const chatInput = document.getElementById('chatInput');
+const sendBtn = document.getElementById('sendBtn');
+
+// Abrir/cerrar chat
+chatbotBtn.addEventListener('click', () => {
+    chatbotWindow.classList.toggle('open');
+});
+
+closeChatBtn.addEventListener('click', () => {
+    chatbotWindow.classList.remove('open');
+});
+
+// Enviar mensaje
+async function sendMessage() {
+    const question = chatInput.value.trim();
+    if (!question) return;
+    
+    addMessage(question, 'user');
+    chatInput.value = '';
+    
+    const typingId = showTypingIndicator();
+    
+    try {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question })
+        });
+        
+        const data = await response.json();
+        hideTypingIndicator(typingId);
+        
+        if (data.error) {
+            addMessage('❌ ' + data.error, 'bot');
+        } else {
+            addMessage(data.answer, 'bot', data.sources);
+        }
+    } catch (error) {
+        hideTypingIndicator(typingId);
+        addMessage('❌ Error de conexión. Intenta de nuevo más tarde.', 'bot');
+    }
+}
+
+function addMessage(text, sender, sources = null) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${sender}`;
+    messageDiv.innerHTML = text;
+    
+    if (sources && sources.length > 0) {
+        const sourcesDiv = document.createElement('div');
+        sourcesDiv.className = 'sources';
+        sourcesDiv.innerHTML = '📖 Fuentes: ' + sources.map(s => s.source).join(', ');
+        messageDiv.appendChild(sourcesDiv);
+    }
+    
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function showTypingIndicator() {
+    const id = 'typing-' + Date.now();
+    const typingDiv = document.createElement('div');
+    typingDiv.id = id;
+    typingDiv.className = 'typing';
+    typingDiv.innerHTML = '✍️ El asistente está escribiendo...';
+    chatMessages.appendChild(typingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    return id;
+}
+
+function hideTypingIndicator(id) {
+    const element = document.getElementById(id);
+    if (element) element.remove();
+}
+
+sendBtn.addEventListener('click', sendMessage);
+chatInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') sendMessage();
+});
+</script>
 </body>
 </html>
