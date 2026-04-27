@@ -36,7 +36,7 @@
                 <p class="subtitle">Momentos que reflejan nuestra vida institucional</p>
 
                 <div class="gallery-grid" id="galleryGrid">
-                    <!-- Aquí se cargarán las fotos automáticamente -->
+                    <!-- Las fotos se cargarán aquí -->
                 </div>
             </div>
         </section>
@@ -54,14 +54,6 @@
                 <p><i class="fas fa-map-marker-alt"></i> Vereda Palmira, El Peñol, Antioquia</p>
                 <p><i class="fas fa-phone"></i> Teléfono: 8514615</p>
                 <p><i class="fas fa-envelope"></i> ierpalmirapenol@gmail.com</p>
-            </div>
-            <div class="footer-section">
-                <h3>Enlaces de interés</h3>
-                <ul>
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="nosotros.html">Nosotros</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                </ul>
             </div>
             <div class="footer-section">
                 <h3>Síguenos</h3>
@@ -84,43 +76,34 @@
     </footer>
 
     <style>
-        /* Estilos específicos para la galería */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
             margin-top: 30px;
         }
-        
         .gallery-item {
             background: white;
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease;
             cursor: pointer;
         }
-        
         .gallery-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
-        
         .gallery-item img {
             width: 100%;
             height: 200px;
             object-fit: cover;
         }
-        
         .gallery-item p {
             padding: 12px;
             text-align: center;
             font-size: 14px;
             color: #1e293b;
-            font-weight: 500;
         }
-        
-        /* Modal para ver foto ampliada */
         .modal {
             display: none;
             position: fixed;
@@ -132,75 +115,48 @@
             z-index: 2000;
             justify-content: center;
             align-items: center;
-            cursor: pointer;
         }
-        
         .modal img {
             max-width: 90%;
             max-height: 90%;
-            border-radius: 8px;
         }
-        
         .modal-close {
             position: absolute;
             top: 20px;
             right: 35px;
             color: white;
             font-size: 40px;
-            font-weight: bold;
             cursor: pointer;
         }
     </style>
 
     <script>
-        // Lista de fotos de ejemplo (reemplaza con tus propias imágenes)
+        // TUS FOTOS REALES (cambia las descripciones)
         const fotos = [
-            {
-                src: 'https://via.placeholder.com/400x300?text=Agrega+tu+foto+1',
-                descripcion: 'Descripción de la foto 1'
-            },
-            {
-                src: 'https://via.placeholder.com/400x300?text=Agrega+tu+foto+2',
-                descripcion: 'Descripción de la foto 2'
-            },
-            {
-                src: 'https://via.placeholder.com/400x300?text=Agrega+tu+foto+3',
-                descripcion: 'Descripción de la foto 3'
-            },
-            {
-                src: 'https://via.placeholder.com/400x300?text=Agrega+tu+foto+4',
-                descripcion: 'Descripción de la foto 4'
-            }
+            { src: 'foto1.jpg', descripcion: 'Fachada del colegio' },
+            { src: 'foto2.jpg', descripcion: 'Estudiantes en clase' },
+            { src: 'foto3.jpg', descripcion: 'Actividad deportiva' },
+            { src: 'foto4.jpg', descripcion: 'Evento cultural' }
         ];
 
-        // Cargar las fotos en la galería
         const galleryGrid = document.getElementById('galleryGrid');
         
         fotos.forEach(foto => {
             const item = document.createElement('div');
             item.className = 'gallery-item';
-            item.innerHTML = `
-                <img src="${foto.src}" alt="${foto.descripcion}">
-                <p>${foto.descripcion}</p>
-            `;
-            item.onclick = () => abrirModal(foto.src);
+            item.innerHTML = `<img src="${foto.src}" alt="${foto.descripcion}"><p>${foto.descripcion}</p>`;
+            item.onclick = () => {
+                document.getElementById('modal').style.display = 'flex';
+                document.getElementById('modalImg').src = foto.src;
+            };
             galleryGrid.appendChild(item);
         });
-
-        // Modal para ampliar fotos
-        function abrirModal(src) {
-            const modal = document.getElementById('modal');
-            const modalImg = document.getElementById('modalImg');
-            modal.style.display = 'flex';
-            modalImg.src = src;
-        }
 
         function cerrarModal() {
             document.getElementById('modal').style.display = 'none';
         }
     </script>
 
-    <!-- Modal -->
     <div id="modal" class="modal" onclick="cerrarModal()">
         <span class="modal-close">&times;</span>
         <img id="modalImg" src="">
