@@ -482,6 +482,58 @@ footer {
     font-size: 0.8rem;
 }
 
+/* ===== REDES SOCIALES SOLO ÍCONOS ===== */
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 22px;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.social-icon.facebook {
+    background: #1877f2;
+}
+.social-icon.facebook:hover {
+    background: #145dbf;
+    transform: translateY(-3px);
+}
+
+.social-icon.instagram {
+    background: linear-gradient(45deg, #f09433, #d62976, #962fbf);
+}
+.social-icon.instagram:hover {
+    transform: translateY(-3px);
+}
+
+.social-icon.youtube {
+    background: #ff0000;
+}
+.social-icon.youtube:hover {
+    background: #cc0000;
+    transform: translateY(-3px);
+}
+
+@media (max-width: 600px) {
+    .social-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 800px) {
     .nav-links {
