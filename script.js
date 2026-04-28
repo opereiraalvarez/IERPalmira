@@ -8,7 +8,7 @@ if (mobileMenu) {
     });
 }
 
-// Cerrar menú al hacer clic en un enlace (opcional)
+// Cerrar menú al hacer clic en un enlace
 document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
         navLinks.classList.remove('active');
