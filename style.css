@@ -554,8 +554,36 @@ footer {
     font-size: 11px;
 }
 
-/* Responsive para móviles */
+/* ===== RESPONSIVE PARA MÓVILES ===== */
 @media (max-width: 768px) {
+    /* Menú de hamburguesa */
+    .menu-toggle {
+        display: block;
+    }
+    
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: white;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        padding: 20px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        z-index: 999;
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+    
+    .nav-links a {
+        margin: 10px 0;
+        padding: 10px;
+    }
+    
+    /* Footer responsive */
     .footer-content {
         flex-direction: column;
         text-align: center;
