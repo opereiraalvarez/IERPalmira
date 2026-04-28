@@ -56,6 +56,12 @@ nav {
     z-index: 1000;
 }
 
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #1e3a8a;
+}
 .logo {
     display: flex;
     align-items: center;
