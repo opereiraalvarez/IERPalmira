@@ -685,112 +685,65 @@ footer {
         margin-left: 0;
     }
     }
-/* ===== PORTAL DE CALIFICACIONES ===== */
-.portal-calificaciones {
-    padding: 60px 0;
-    background: #f8fafc;
-    text-align: center;
+/* ===== MARCA EN NAV: LOGO + BOTÓN PORTAL ===== */
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
-.portal-calificaciones__intro {
-    max-width: 640px;
-    margin: 0 auto 32px;
-    color: #475569;
-    font-size: 1.05rem;
-    line-height: 1.6;
-}
-
-.btn-portal {
+.btn-portal-nav {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 18px;
-    padding: 22px 40px;
-    border-radius: 18px;
-    background: linear-gradient(135deg, #1e3a8a 0%, #059669 100%);
-    color: #ffffff;
+    gap: 8px;
+    padding: 10px 18px;
+    background: linear-gradient(135deg, #1e3a8a, #059669);
+    color: #ffffff !important;
     text-decoration: none;
-    box-shadow: 0 12px 28px -8px rgba(5, 150, 105, 0.5);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    border: 3px solid transparent;
-}
-
-.btn-portal:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 38px -8px rgba(5, 150, 105, 0.65);
-    color: #ffffff;
-}
-
-.btn-portal:focus-visible {
-    outline: 3px solid #fbbf24;
-    outline-offset: 4px;
-}
-
-.btn-portal__icon {
-    font-size: 1.8rem;
-    flex-shrink: 0;
-}
-
-.btn-portal__text {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-}
-
-.btn-portal__text strong {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.35rem;
-    font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-}
-
-.btn-portal__text small {
+    border-radius: 30px;
     font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 400;
-    opacity: 0.92;
-    margin-top: 3px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    box-shadow: 0 4px 12px -2px rgba(5, 150, 105, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    white-space: nowrap;
 }
 
-.btn-portal__arrow {
-    font-size: 1.1rem;
-    margin-left: 6px;
-    transition: transform 0.25s ease;
+.btn-portal-nav:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px -2px rgba(5, 150, 105, 0.55);
+    color: #ffffff !important;
 }
 
-.btn-portal:hover .btn-portal__arrow {
-    transform: translateX(5px);
+.btn-portal-nav:focus-visible {
+    outline: 3px solid #fbbf24;
+    outline-offset: 3px;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-    .portal-calificaciones {
-        padding: 40px 0;
+.btn-portal-nav i {
+    font-size: 16px;
+}
+
+/* En pantallas medianas: solo el ícono con birrete */
+@media (max-width: 900px) {
+    .btn-portal-nav span {
+        display: none;
     }
+    .btn-portal-nav {
+        padding: 10px 12px;
+    }
+}
 
-    .btn-portal {
-        flex-direction: column;
-        text-align: center;
-        padding: 22px 24px;
+/* En móviles muy pequeños: ocultar también el texto del logo para que no se apriete */
+@media (max-width: 480px) {
+    .nav-brand .logo span {
+        display: none;
+    }
+    .nav-brand {
         gap: 10px;
-        width: 100%;
-        max-width: 340px;
-    }
-
-    .btn-portal__text {
-        text-align: center;
-    }
-
-    .btn-portal__text strong {
-        font-size: 1.2rem;
-    }
-
-    .btn-portal__arrow {
-        margin-left: 0;
     }
 }
-
 /* ===== RESPONSIVE PARA MÓVILES ===== */
 @media (max-width: 768px) {
     /* Menú de hamburguesa */
