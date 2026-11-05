@@ -560,132 +560,7 @@ footer {
     font-size: 11px;
 }
 
-/* ===== BOTÓN CTA: REVISA TUS NOTAS ===== */
-.cta-notas {
-    padding: 60px 0;
-    background: #f8fafc;
-}
-
-.btn-notas {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 24px 32px;
-    border-radius: 24px;
-    background: linear-gradient(135deg, #1e3a8a 0%, #059669 100%);
-    color: #ffffff;
-    text-decoration: none;
-    box-shadow: 0 15px 35px -10px rgba(5, 150, 105, 0.5);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    border: 3px solid transparent;
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-notas::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
-    opacity: 0;
-    transition: opacity 0.4s;
-}
-
-.btn-notas:hover::before {
-    opacity: 1;
-}
-
-.btn-notas:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 25px 45px -10px rgba(5, 150, 105, 0.65);
-    color: #ffffff;
-}
-
-.btn-notas:focus-visible {
-    outline: 3px solid #fbbf24;
-    outline-offset: 4px;
-}
-
-.btn-notas__icon {
-    font-size: 2.5rem;
-    line-height: 1;
-    flex-shrink: 0;
-    animation: pulse-notas 2s ease-in-out infinite;
-}
-
-@keyframes pulse-notas {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.12); }
-}
-
-.btn-notas__text {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-}
-
-.btn-notas__text strong {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-}
-
-.btn-notas__text small {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-    margin-top: 4px;
-    opacity: 0.95;
-    font-weight: 400;
-}
-
-.btn-notas__arrow {
-    font-size: 1.5rem;
-    margin-left: auto;
-    transition: transform 0.25s ease;
-}
-
-.btn-notas:hover .btn-notas__arrow {
-    transform: translateX(6px);
-}
-
-/* Responsive del botón */
-@media (max-width: 600px) {
-    .cta-notas {
-        padding: 40px 0;
-    }
-
-    .btn-notas {
-        flex-direction: column;
-        text-align: center;
-        padding: 24px 20px;
-        gap: 12px;
-    }
-
-    .btn-notas__text {
-        text-align: center;
-    }
-
-    .btn-notas__text strong {
-        font-size: 1.25rem;
-    }
-
-    .btn-notas__icon {
-        font-size: 2.2rem;
-    }
-
-    .btn-notas__arrow {
-        margin-left: 0;
-    }
-    }
-/* ===== MARCA EN NAV: LOGO + BOTÓN PORTAL ===== */
+/* ===== PORTAL DE CALIFICACIONES EN EL NAV ===== */
 .nav-brand {
     display: flex;
     align-items: center;
@@ -725,7 +600,6 @@ footer {
     font-size: 16px;
 }
 
-/* En pantallas medianas: solo el ícono con birrete */
 @media (max-width: 900px) {
     .btn-portal-nav span {
         display: none;
@@ -735,7 +609,6 @@ footer {
     }
 }
 
-/* En móviles muy pequeños: ocultar también el texto del logo para que no se apriete */
 @media (max-width: 480px) {
     .nav-brand .logo span {
         display: none;
