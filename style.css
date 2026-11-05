@@ -661,3 +661,21 @@ footer {
         justify-content: center;
     }
 }
+
+
+/* Evita desborde del nav entre 769px y 1000px */
+@media (min-width: 769px) and (max-width: 1000px) {
+    .nav-links a {
+        margin-left: 14px;
+        font-size: 14px;
+    }
+    .logo span {
+        font-size: 1rem;
+    }
+    .btn-portal-nav span {
+        display: none;
+    }
+    .btn-portal-nav {
+        padding: 10px 12px;
+    }
+}
